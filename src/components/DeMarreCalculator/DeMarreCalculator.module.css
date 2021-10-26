@@ -1,0 +1,42 @@
+.Container {
+    min-height: 100px;
+    width: 430px;
+    margin: 200px auto;
+    display: grid;
+    grid-auto-rows: 40px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    align-items: center;
+}
+
+.Input {
+    display: inline-block;
+    height: 25px;
+    margin-left: 5px;
+    -moz-appearance: textfield;
+}
+  
+.Input::-webkit-outer-spin-button,
+.Input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+  
+.InputContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+  
+.CalculateButton {
+    height: 30px;
+    width: 100px;
+    margin: 0 auto;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.Result {
+    margin: 0 auto;
+    margin-top: 5px;
+    font-size: 1.7rem;
+}
