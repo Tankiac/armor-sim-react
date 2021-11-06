@@ -1,8 +1,9 @@
 import { createStore } from "redux";
 
-const mainReducer = (state = {}, action ) => {
+const mainReducer = (state = { screenSize: "large", }, action ) => {
     switch (action.type) {
         case "flash": return { ...state, flashMessage: action.payload.flashMessage, flashType: action.payload.flashType } || state;
+        case "setScreenSize": return { ...state, screenSize: action.payload.screenSize } || state;
         default: return state;
     }
 };
