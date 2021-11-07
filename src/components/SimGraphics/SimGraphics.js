@@ -2,6 +2,7 @@ import React, { useEffect, useReducer, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { Container, Graphics, Stage } from "@inlet/react-pixi";
 
+import Shell from "../PixiComponents/Shell/Shell";
 import Plate from "../PixiComponents/Plate/Plate";
 
 import classes from "./SimGraphics.module.css"
@@ -9,37 +10,32 @@ import classes from "./SimGraphics.module.css"
 
 const SimGraphics = (props) => {
 
-    const [stageWidth, setStageWidth] = useState(1000);
-    const [stageHeight, setStageHeight] = useState(500);
-
-    const screenSize = useSelector(state => state.screenSize);
-
     const simGraphicsRef = useRef()
+    
+    const [stageWidth, setStageWidth] = useState(1579);
+    const [stageHeight, setStageHeight] = useState(913);
+    
+    const screenSize = useSelector(state => state.screenSize);
 
     useEffect(() => {
         setStageHeight(simGraphicsRef.current.clientHeight);
         setStageWidth(simGraphicsRef.current.clientWidth);
     }, [screenSize])
 
-    const reducer = (_, { data }) => data
-    const Grid = () => {
-        const [motion, update] = useReducer(reducer)
-      
-        return (null)
-    }
-
-    
-
     return (
             <div className={classes.SimGraphics} ref={simGraphicsRef}>
                 <Stage 
                     width={stageWidth} 
                     height={stageHeight}
+                    
                     options={{
                         backgroundAlpha: 0,
                         antialias: true,
+                        interactive: true
                     }}>
-                        <Plate stageWidth={stageWidth} stageHeight={stageHeight}/>
+                        {/*<Shell stageWidth={stageWidth} stageHeight={stageHeight}/>*/}
+                        <Shell x={300} y = {stageHeight / 2} scale={0.5} stageWidth={stageWidth} stageHeight={stageHeight}/>
+                        <Plate x = {stageWidth / 1.35} y = {stageHeight / 2} stageWidth={stageWidth} stageHeight={stageHeight}/>
                 </Stage>
             </div>
     )

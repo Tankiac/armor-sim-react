@@ -1,5 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { AppConsumer } from "@inlet/react-pixi";
+import * as PIXI from "pixi.js"
 
 import DeMarreCalculator from "../../components/DeMarreCalculator/DeMarreCalculator";
 import Toolbar from "../../components/Toolbar/Toolbar";
