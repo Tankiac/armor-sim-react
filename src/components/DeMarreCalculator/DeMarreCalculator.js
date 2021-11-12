@@ -65,8 +65,7 @@ const DeMarreCalculator = (props) => {
             )
                 )
         )
-        console.log(Math.pow((vars.shellVelocity * Math.cos(vars.plateObliquity !== 0 ? degreesToRadians(vars.plateObliquity) : 0) ), 2));
-        console.log(Math.cos(vars.plateObliquity !== 0 ? degreesToRadians(vars.plateObliquity) : 0))
+
         return penetration;
     }
 
@@ -75,7 +74,7 @@ const DeMarreCalculator = (props) => {
             <div className={classes.Container}>
                 <div className={classes.InputContainer}>
                     <label htmlFor="shellMass">Shell Mass</label>
-                    <input type="number" ref={shellMassRef} id="shellMass" value={3.14} className={classes.Input}/>
+                    <input type="number" ref={shellMassRef} id="shellMass" defaultValue={3.14} className={classes.Input}/>
                 </div>
                 <div className={classes.InputContainer}>
                     <label htmlFor="shellDiameter">Shell Diameter</label>

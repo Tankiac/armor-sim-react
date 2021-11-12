@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useState, useRef, useCallback } from "react";
+import { DashLine } from 'pixi-dashed-line'
 
-import { Sprite } from "@inlet/react-pixi";
+import { Graphics, Sprite, useTick } from "@inlet/react-pixi";
 import PlaceholderShell from "../../../assets/images/PlaceholderShell.png"
 
 
@@ -14,18 +15,25 @@ const Shell = ({ x = 400, y = 300, ...props }) => {
         return rad / (Math.PI / 180);
       };
 
-    const useDrag = ({ x, y }) => {
-        const sprite = React.useRef();
-        const [isDragging, setIsDragging] = React.useState(false);
-        const [position, setPosition] = React.useState({ x, y });
-        const [plateX, plateY] = [props.stageWidth / 1.35 - 25, props.stageHeight / 2 - 25]
-        const [shellAngle, setShellAngle] = React.useState(degToRad(0))
+      const [position, setPosition] = useState({ x, y });
 
-        const onDown = React.useCallback(() => setIsDragging(true), []);
-        const onUp = React.useCallback(() => setIsDragging(false), []);
-        const onMove = React.useCallback(e => {
+      const sprite = useRef();
+      const trajectoryLine = useRef();
+
+      const [plateX, plateY] = [props.stageWidth / 1.35 - 25, props.stageHeight / 2 - 25]
+
+    const useDrag = () => {
+        
+        const [isDragging, setIsDragging] = useState(false);
+        
+        const [shellAngle, setShellAngle] = useState(degToRad(0))
+
+        const onDown = useCallback(() => setIsDragging(true), []);
+        const onUp = useCallback(() => setIsDragging(false), []);
+        const onMove = useCallback(e => {
           if (isDragging && sprite.current) {
             setPosition(e.data.getLocalPosition(sprite.current.parent));
+
 
             let a = plateX - e.data.getLocalPosition(sprite.current.parent).x
             let b = plateY - e.data.getLocalPosition(sprite.current.parent).y
@@ -35,7 +43,6 @@ const Shell = ({ x = 400, y = 300, ...props }) => {
         }, [isDragging, setPosition]);
         
         return {
-          ref: sprite,
           interactive: true, 
           pointerdown: onDown, 
           pointerup: onUp, 
@@ -48,15 +55,57 @@ const Shell = ({ x = 400, y = 300, ...props }) => {
         };
       };
 
-    const bind = useDrag({ x, y });
-    
+    const bindDrag = useDrag();
+
+    const drawTrajectoryLine = useCallback(g => {
+      if (position.x === x && position.y === y) {
+        const dash = new DashLine(g, {
+          dash: [20, 10],
+          width: 2,
+          color: 0x000000,
+      })
+        dash.moveTo(x, y)
+        .lineTo(plateX, plateY)
+        /*g.beginFill(0x000000)
+        .lineStyle(2, 0x000000)
+        .moveTo(x, y)
+        .lineTo(plateX, plateY)*/
+      } else if (position.x !== x && position.y !== y) {
+        g.clear()
+        const dash = new DashLine(g, {
+          dash: [20, 10],
+          width: 2,
+          color: 0x000000,
+      })
+        dash.moveTo(position.x, position.y)
+        .lineTo(plateX, plateY)
+        /*g.beginFill(0x000000)
+        .lineStyle(2, 0x000000)
+        .moveTo(position.x, position.y)
+        .lineTo(plateX, plateY)*/
+      }
+      
+    }, [position])
+
+    useTick((delta) => {
+      const g = trajectoryLine.current;
+      g.moveTo(sprite.current.position)
+      .lineTo(plateX, plateY)
+    })
+
     return (
-      <Sprite
+      <React.Fragment>
+        <Graphics 
+        draw={drawTrajectoryLine}
+        ref={trajectoryLine}/>
+        <Sprite
         image={PlaceholderShell}
         scale={1}
-        {...bind}
+        ref={sprite}
+        {...bindDrag}
         {...props}
-      />
+        />
+      </React.Fragment>
     );
   }
 

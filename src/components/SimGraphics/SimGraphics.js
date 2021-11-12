@@ -4,6 +4,7 @@ import { Container, Graphics, Stage } from "@inlet/react-pixi";
 
 import Shell from "../PixiComponents/Shell/Shell";
 import Plate from "../PixiComponents/Plate/Plate";
+import Grid from "../PixiComponents/Grid/Grid";
 
 import classes from "./SimGraphics.module.css"
 
@@ -34,6 +35,7 @@ const SimGraphics = (props) => {
                         interactive: true
                     }}>
                         {/*<Shell stageWidth={stageWidth} stageHeight={stageHeight}/>*/}
+                        <Grid stageHeight={stageHeight} stageWidth={stageWidth}/>
                         <Shell x={300} y = {stageHeight / 2} scale={0.5} stageWidth={stageWidth} stageHeight={stageHeight}/>
                         <Plate x = {stageWidth / 1.35} y = {stageHeight / 2} stageWidth={stageWidth} stageHeight={stageHeight}/>
                 </Stage>
