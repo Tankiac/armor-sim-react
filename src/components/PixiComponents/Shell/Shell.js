@@ -20,7 +20,7 @@ const Shell = ({ x = 400, y = 300, ...props }) => {
       const sprite = useRef();
       const trajectoryLine = useRef();
 
-      const [plateX, plateY] = [props.stageWidth / 1.35 - 25, props.stageHeight / 2 - 25]
+      const [plateX, plateY] = [props.stageWidth / 1.35, props.stageHeight / 2]
 
     const useDrag = () => {
         
@@ -33,7 +33,12 @@ const Shell = ({ x = 400, y = 300, ...props }) => {
         const onMove = useCallback(e => {
           if (isDragging && sprite.current) {
             setPosition(e.data.getLocalPosition(sprite.current.parent));
-
+            props.setShellPosition(
+              { 
+                x: e.data.getLocalPosition(sprite.current.parent).x,
+                y: e.data.getLocalPosition(sprite.current.parent).y
+              }
+            )
 
             let a = plateX - e.data.getLocalPosition(sprite.current.parent).x
             let b = plateY - e.data.getLocalPosition(sprite.current.parent).y
@@ -66,10 +71,6 @@ const Shell = ({ x = 400, y = 300, ...props }) => {
       })
         dash.moveTo(x, y)
         .lineTo(plateX, plateY)
-        /*g.beginFill(0x000000)
-        .lineStyle(2, 0x000000)
-        .moveTo(x, y)
-        .lineTo(plateX, plateY)*/
       } else if (position.x !== x && position.y !== y) {
         g.clear()
         const dash = new DashLine(g, {
@@ -79,10 +80,6 @@ const Shell = ({ x = 400, y = 300, ...props }) => {
       })
         dash.moveTo(position.x, position.y)
         .lineTo(plateX, plateY)
-        /*g.beginFill(0x000000)
-        .lineStyle(2, 0x000000)
-        .moveTo(position.x, position.y)
-        .lineTo(plateX, plateY)*/
       }
       
     }, [position])

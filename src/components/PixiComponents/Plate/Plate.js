@@ -1,5 +1,5 @@
-import { Graphics, Container, Sprite } from "@inlet/react-pixi";
 import React from "react";
+import { Graphics, Container, Sprite } from "@inlet/react-pixi";
 
 const Plate = (props) => {
     const [position, setPosition] = React.useState({ x: props.x, y: props.y });
@@ -7,8 +7,8 @@ const Plate = (props) => {
     const drawPlate = React.useCallback(g => {
         g.beginFill(0xFFFFFF)
         .lineStyle(4, 0x000000)
-        .drawRect(0, 0, 500, 50)
-        g.pivot.set(g.width/2, g.height/2)
+        .drawRect(0, 0, props.plateWidth, props.plateHeight)
+        g.pivot.set(g.width/2, 0)
         
     }, [])
 
@@ -17,7 +17,7 @@ const Plate = (props) => {
             position={[position.x, position.y]}>
             <Graphics 
                 draw={drawPlate}
-                angle={360 - 45}/>
+                angle={360 - (90 - props.plateAngle)}/>
         </Container>
     )
 }

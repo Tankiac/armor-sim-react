@@ -26,6 +26,12 @@
     margin-left: 5px;
     -moz-appearance: textfield;
 }
+
+.UnchangeableInput {
+    border: 1px solid #ccc;
+    border-radius: 1px;
+    padding: 1px 3px;
+}
   
 .Input::-webkit-outer-spin-button,
 .Input::-webkit-inner-spin-button {
