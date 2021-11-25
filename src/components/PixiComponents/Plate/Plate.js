@@ -9,14 +9,13 @@ const Plate = (props) => {
         .lineStyle(4, 0x000000)
         .drawRect(0, 0, props.plateWidth, props.plateHeight)
         g.pivot.set(g.width/2, 0)
-        
     }, [])
 
     return (
         <Container
             position={[position.x, position.y]}>
             <Graphics 
-                draw={drawPlate}
+                draw={drawPlate} 
                 angle={360 - (90 - props.plateAngle)}/>
         </Container>
     )

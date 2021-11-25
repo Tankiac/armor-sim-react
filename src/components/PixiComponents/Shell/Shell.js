@@ -71,7 +71,7 @@ const Shell = ({ x = 400, y = 300, ...props }) => {
       })
         dash.moveTo(x, y)
         .lineTo(plateX, plateY)
-      } else if (position.x !== x && position.y !== y) {
+      } else if (position.x !== x || position.y !== y) {
         g.clear()
         const dash = new DashLine(g, {
           dash: [20, 10],

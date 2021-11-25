@@ -27,10 +27,9 @@ const SimGraphics = (props) => {
     
     const [stageWidth, setStageWidth] = useState(1579);
     const [stageHeight, setStageHeight] = useState(913);
-    const [shellPosition, setShellPosition] = useState({});
+    const [shellPosition, setShellPosition] = useState({x: 300, y: stageHeight / 2});
     const [shellDistanceToPlate, setShellDistanceToPlate] = useState(null);
     const [shellDistanceToPlateEdge, setShellDistanceToPlateEdge] = useState(null);
-    const [angleOfImpact, setAngleOfImpact] = useState(null);
 
     const plateX = stageWidth / 1.35;
     const plateY = stageHeight / 2;
@@ -78,7 +77,6 @@ const SimGraphics = (props) => {
                     )
                 )
             )
-        setAngleOfImpact(impactAngle)
         dispatch({
             type: "setAngleOfImpact",
             payload: {
