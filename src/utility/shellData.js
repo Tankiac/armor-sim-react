@@ -13,7 +13,7 @@ const shellData = [
         shellMass: 10.20,
         shellDiameter: 88,
         shellVelocity: 773,
-        K: 2000,
+        K: 1950,
         type: "APCBC",
         nation: "Germany"
     },
@@ -68,7 +68,7 @@ const shellData = [
         shellMass: 10.9,
         shellDiameter: 90,
         shellVelocity: 853,
-        K: 2000,
+        K: 2050,
         type: "APCBC",
         nation: "USA"
     },

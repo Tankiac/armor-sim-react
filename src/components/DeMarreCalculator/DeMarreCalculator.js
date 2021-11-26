@@ -10,6 +10,7 @@ import classes from "./DeMarreCalculator.module.css"
 
 const DeMarreCalculator = (props) => {
     const [result, setResult] = useState(null);
+    const [effectiveThickness, setEffectiveThickness] = useState(null)
     const [shellPreset, setShellPreset] = useState(null);
     const [targetTankPreset, setTargetTankPreset] = useState(null);
     const [platePreset, setPlatePreset] = useState(null);
@@ -117,14 +118,13 @@ const DeMarreCalculator = (props) => {
     useEffect(() => {
         if (renderCounter.current > 2) {
             onCalculate()
-        } else renderCounter.current++
-    }, [angleOfImpact])
 
-    useEffect(() => {
-        if (renderCounter.current > 2) {
-            
+            let hypotenuse;
+            hypotenuse = plateThickness / Math.sin(degreesToRadians(90 - angleOfImpact));
+            setEffectiveThickness(hypotenuse)
+
         } else renderCounter.current++
-    }, [platePreset])
+    }, [angleOfImpact, plateThickness])
 
     const getShellNames = () => {
         let shellNames = [];
@@ -193,14 +193,47 @@ const DeMarreCalculator = (props) => {
             setShellDiameter(shellPreset.shellDiameter)
             setShellVelocity(shellPreset.shellVelocity)
             setDeMarreConst(shellPreset.K)
-
-            console.log(shellPreset)
         }
     }, [shellPreset])
 
     useEffect(() => {
-        onCalculate()
+        if (renderCounter.current > 2) {
+            onCalculate()
+        }
     }, [shellMass, shellDiameter, shellVelocity, plateAngle, plateThickness, deMarreConst, thicknessConst])
+
+    const customSelectStyles = {
+        menu: (provided, state) => ({
+            ...provided,
+            backgroundColor: "rgba(43, 47, 54, 1)",
+            color: "rgb(234, 236, 239)",
+            border: "none",
+            borderRadius: "5px"
+        }),
+        singleValue: (provided, state) => ({
+            ...provided,
+            color: "rgb(234, 236, 239)",
+        }),
+        option: (provided, state) => ({
+            ...provided,
+            backgroundColor: "rgba(43, 47, 54, 1)",
+            color: "rgb(234, 236, 239)",
+            "&:hover": {
+                backgroundColor: "rgba(49, 53, 60, 1)"    
+            }
+        }),
+        control: (provided, state) => ({
+            ...provided,
+            backgroundColor: "rgba(43, 47, 54, 1)",
+            color: "white",
+            boxShadow: "none",
+            borderColor: state.isFocused ? "rgb(255, 238, 0)" : "rgba(0, 0, 0, 0)",
+            "&:hover": {
+                backgroundColor: "rgba(49, 53, 60, 1)",
+                cursor: "pointer"
+            }
+        })
+    }
 
     return (
         
@@ -213,6 +246,7 @@ const DeMarreCalculator = (props) => {
                     </label>
                     <Select 
                         className={classes.SearchBox}
+                        styles={customSelectStyles}
                         id="shellSelect"
                         placeholder="Select a shell"
                         onChange={onSelectShellPreset}
@@ -227,6 +261,7 @@ const DeMarreCalculator = (props) => {
                     </label>
                     <Select 
                         className={`${classes.SearchBox} ${classes.PlateSelectInput}`}
+                        styles={customSelectStyles}
                         id="plateSelect"
                         placeholder="Select a tank"
                         onChange={onSelectTargetTankPreset}
@@ -236,92 +271,124 @@ const DeMarreCalculator = (props) => {
             <div className={classes.PlatePresetContainer}>
                     <Select 
                         className={`${classes.SearchBox} ${classes.PlateSelectInput}`}
+                        styles={customSelectStyles}
                         id="plateSelect"
                         placeholder="Select a plate"
                         onChange={onSelectPlatePreset}
                         options={plateNames}
                     />
             </div>
+
+            
             <div className={classes.Container}>
                 <div className={classes.InputContainer}>
-                    <label htmlFor="shellMass">Shell Mass (kg)</label>
-                    <input 
-                        type="number" 
-                        id="shellMass" 
-                        value={shellMass}
-                        onInput={onInputShellMass}
-                        className={classes.Input}/>
+                    <label htmlFor="shellMass">Shell Mass</label>
+                    <div className={classes.InputWrapper}>
+                        <input 
+                            type="number" 
+                            id="shellMass" 
+                            value={shellMass}
+                            onInput={onInputShellMass}
+                            className={classes.Input}/>
+                            <div className={classes.MeasuringUnit}>kg</div>
+                    </div>
                 </div>
                 <div className={classes.InputContainer}>
-                    <label htmlFor="shellDiameter">Shell Diameter (mm)</label>
-                    <input 
-                        type="number" 
-                        id="shellDiameter" 
-                        value={shellDiameter}
-                        onInput={onInputShellDiameter}
-                        className={classes.Input}/>
+                    <label htmlFor="shellDiameter">Shell Diameter</label>
+                    <div className={classes.InputWrapper}>
+                        <input 
+                            type="number" 
+                            id="shellDiameter" 
+                            value={shellDiameter}
+                            onInput={onInputShellDiameter}
+                            className={classes.Input}/>
+                            <div className={classes.MeasuringUnit}>mm</div>
+                    </div>
                 </div>
                 <div className={classes.InputContainer}>
-                    <label htmlFor="shellVelocity">Shell Velocity (m/s)</label>
-                    <input 
-                        type="number" 
-                        id="shellVelocity" 
-                        value={shellVelocity}
-                        onInput={onInputShellVelocity}
-                        className={classes.Input}/>
+                    <label htmlFor="shellVelocity">Shell Velocity</label>
+                    <div className={classes.InputWrapper}>
+                        <input 
+                            type="number" 
+                            id="shellVelocity" 
+                            value={shellVelocity}
+                            onInput={onInputShellVelocity}
+                            className={classes.Input}/>
+                            <div className={classes.MeasuringUnit}>m/s</div>
+                    </div>
                 </div>
                 <div className={classes.InputContainer}>
-                    <label htmlFor="plateObliquity">Plate angle (°)</label>
-                    <input 
-                        type="number" 
-                        id="plateObliquity" 
-                        value={plateAngle} 
-                        onInput={onInputPlateAngle}
-                        className={classes.Input}/>
+                    <label htmlFor="plateObliquity">Plate angle</label>
+                    <div className={classes.InputWrapper}>
+                        <input 
+                            type="number" 
+                            id="plateObliquity" 
+                            value={plateAngle} 
+                            onInput={onInputPlateAngle}
+                            className={classes.Input}/>
+                            <div className={classes.MeasuringUnit}>°</div>
+                    </div>
                 </div>
                 <div className={classes.InputContainer}>
-                    <label htmlFor="angleOfImpact">Angle of Impact (°)</label>
-                    <input 
-                        type="number" 
-                        id="angleOfImpact" 
-                        value={angleOfImpact ? angleOfImpact : angleOfImpact === 0 ? angleOfImpact : 45}
-                        readOnly={true}
-                        className={`${classes.Input} ${classes.UnchangeableInput}`}/>
+                    <label htmlFor="angleOfImpact">Angle of Impact</label>
+                    <div className={`${classes.InputWrapper} ${classes.UnchangeableInputWrapper}`}>
+                        <input 
+                            type="number" 
+                            id="angleOfImpact" 
+                            value={angleOfImpact ? angleOfImpact : angleOfImpact === 0 ? angleOfImpact : 45}
+                            readOnly
+                            disabled
+                            className={`${classes.Input} ${classes.UnchangeableInput}`}/>
+                            <div className={classes.MeasuringUnit}>°</div>
+                    </div>
                 </div>
                 <div className={classes.InputContainer}>
-                    <label htmlFor="plateThickness">Plate thickness (mm)</label>
-                    <input 
-                        type="number" 
-                        id="plateThickness" 
-                        value={plateThickness}
-                        onInput={onInputPlateThickness}
-                        className={classes.Input}/>
+                    <label htmlFor="plateThickness">Plate thickness</label>
+                    <div className={classes.InputWrapper}>
+                        <input 
+                            type="number" 
+                            id="plateThickness" 
+                            value={plateThickness}
+                            onInput={onInputPlateThickness}
+                            className={classes.Input}/>
+                            <div className={classes.MeasuringUnit}>mm</div>
+                    </div>
                 </div>
                 <div className={classes.InputContainer}>
                     <label htmlFor="deMarreConst">K - const.</label>
-                    <input 
-                        type="number" 
-                        id="deMarreConst" 
-                        value={deMarreConst}
-                        onInput={onInputDeMarreConst}
-                        className={classes.Input}/>
+                    <div className={classes.InputWrapper}>
+                        <input 
+                            type="number" 
+                            id="deMarreConst" 
+                            value={deMarreConst}
+                            onInput={onInputDeMarreConst}
+                            className={classes.Input}/>
+                            <div className={classes.MeasuringUnit}></div>
+                    </div>
                 </div>
                 <div className={classes.InputContainer}>
                     <label htmlFor="thicknessConst">n - const.</label>
-                    <input 
-                        type="number"  
-                        id="thicknessConst" 
-                        value={thicknessConst}
-                        onInput={onInputThicknessConst}
-                        className={classes.Input}/>
+                    <div className={classes.InputWrapper}>
+                        <input 
+                            type="number"  
+                            id="thicknessConst" 
+                            value={thicknessConst}
+                            onInput={onInputThicknessConst}
+                            className={classes.Input}/>
+                            <div className={classes.MeasuringUnit}></div>
+                    </div>
                 </div>
-                <button 
+            </div>
+            <button 
                     className={classes.CalculateButton} 
                     onClick={() => {onCalculate()}}>
-                        Calculate!
-                    </button>
-                {result && <div className={`${classes.Result} ${classes.Unselectable}`}>{Math.round(result*100)}mm</div>}
-            </div>
+                        Calculate
+                </button>
+            {result && <div 
+                className={`${classes.Result} ${classes.Unselectable}`}>
+                    Effective penetration <span className={`${result*100 > plateThickness * 1.05 ? classes.SuccessText : result*100 > plateThickness * 0.9 ? classes.MixedText : classes.FailText}`}>{Math.round(result*100)}mm</span>
+                </div>}
+            {/*effectiveThickness && <div className={`${classes.Result} ${classes.Unselectable}`}>Effective thickness {Math.round(effectiveThickness)}mm</div>*/}
         </div>
     )
     

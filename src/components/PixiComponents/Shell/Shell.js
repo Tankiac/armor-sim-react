@@ -49,6 +49,7 @@ const Shell = ({ x = 400, y = 300, ...props }) => {
         
         return {
           interactive: true, 
+          cursor: isDragging ? "grabbing" : "grab",
           pointerdown: onDown, 
           pointerup: onUp, 
           pointerupoutside: onUp,
