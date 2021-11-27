@@ -68,7 +68,7 @@ const Shell = ({ x = 400, y = 300, ...props }) => {
         const dash = new DashLine(g, {
           dash: [20, 10],
           width: 2,
-          color: 0x000000,
+          color: 0xe8e400,
       })
         dash.moveTo(x, y)
         .lineTo(plateX, plateY)
@@ -77,7 +77,7 @@ const Shell = ({ x = 400, y = 300, ...props }) => {
         const dash = new DashLine(g, {
           dash: [20, 10],
           width: 2,
-          color: 0x000000,
+          color: 0xe8e400,
       })
         dash.moveTo(position.x, position.y)
         .lineTo(plateX, plateY)

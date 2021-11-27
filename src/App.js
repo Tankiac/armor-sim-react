@@ -1,16 +1,24 @@
 import React from "react";
+import { Switch, Route } from "react-router-dom"
 
-import Toolbar from "./components/Toolbar/Toolbar";
 import CalculatorPage from "./pages/CalculatorPage/CalculatorPage";
 import ScreenSizeProvider from "./components/ScreenSizeProvider/ScreenSizeProvider";
-import DeMarreCalculator from "./components/DeMarreCalculator/DeMarreCalculator";
+import TutorialPage from "./pages/TutorialPage/TutorialPage";
 
 function App() {
   return (
     <React.Fragment>
       <ScreenSizeProvider/>
-      
-      <CalculatorPage/>
+      <main>
+        <Switch>
+          <Route path="/tutorial">
+            <TutorialPage/>
+          </Route>
+          <Route path="/">
+            <CalculatorPage/>
+          </Route>
+        </Switch>
+      </main>
     </React.Fragment>
   );
 }

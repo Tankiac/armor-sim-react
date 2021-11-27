@@ -1,0 +1,40 @@
+.TutorialArticle {
+    margin: 50px auto;
+    margin-bottom: 0;
+    width: 1000px;
+    max-width: 60%;
+    height: 100%;
+    padding: 40px;
+    background-color: rgb(62, 68, 77);
+    color: #eaecef;
+    box-sizing: border-box;
+    font-family: 'M PLUS 1', sans-serif;
+}
+
+.SubTitle {
+    padding-left: 20px;
+    margin-bottom: 0px;
+}
+
+.TextDiv {
+    padding: 20px 40px;
+    padding-bottom: 0px;
+    font-size: 1.1rem;
+}
+
+.ImageDesc {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.Image {
+    display: block;
+    width: 500px;
+    margin: 30px auto;
+}
+
+.ListItem {
+    margin-bottom: 8px;
+    list-style-type: none;
+    line-height: 160%;
+}

@@ -2,9 +2,9 @@ import React, { useEffect, useReducer, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Container, Graphics, Stage } from "@inlet/react-pixi";
 
-import Shell from "../PixiComponents/Shell/Shell";
-import Plate from "../PixiComponents/Plate/Plate";
-import Grid from "../PixiComponents/Grid/Grid";
+import Shell from "../../PixiComponents/Shell/Shell";
+import Plate from "../../PixiComponents/Plate/Plate";
+import Grid from "../../PixiComponents/Grid/Grid";
 
 import classes from "./SimGraphics.module.css"
 

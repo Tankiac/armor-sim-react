@@ -5,7 +5,8 @@ const mainReducer = (state = {
         flash: null, 
         plateAngle: 45, 
         angleOfImpact: 45,
-        plateThickness: 50
+        plateThickness: 50,
+        activeToolbarBtn: "calculator"
     }, action ) => {
     switch (action.type) {
         case "flash": return { ...state, flashMessage: action.payload.flashMessage, flashType: action.payload.flashType } || state;
@@ -13,6 +14,7 @@ const mainReducer = (state = {
         case "setPlateAngle": return { ...state, plateAngle: action.payload.plateAngle } || state;
         case "setAngleOfImpact": return { ...state, angleOfImpact: action.payload.angleOfImpact } || state;
         case "setPlateThickness": return { ...state, plateThickness: action.payload.plateThickness } || state;
+        case "setActiveToolbarBtn": return { ...state, activeToolbarBtn: action.payload.activeToolbarBtn } || state;
         default: return state;
     }
 };

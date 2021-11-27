@@ -5,7 +5,7 @@ const Plate = (props) => {
     const [position, setPosition] = React.useState({ x: props.x, y: props.y });
 
     const drawPlate = React.useCallback(g => {
-        g.beginFill(0xFFFFFF)
+        g.beginFill(0xaaaaaa)
         .lineStyle(4, 0x000000)
         .drawRect(0, 0, props.plateWidth, props.plateHeight)
         g.pivot.set(g.width/2, 0)

@@ -44,7 +44,7 @@
     border-radius: 5px;
 
     background: rgb(43, 47, 54);
-
+    cursor: text;
 }
 
 .InputWrapper:hover {
@@ -78,6 +78,7 @@
 
 .UnchangeableInputWrapper {
     background: rgb(54, 59, 65);
+    cursor: not-allowed;
 }
 
 .UnchangeableInput {
@@ -90,7 +91,17 @@
     -webkit-appearance: none;
     margin: 0;
 }
-  
+
+@keyframes inputBorder {
+    0% {border: 1px solid rgb(211, 211, 0);}
+    50% {border: 1px solid rgb(211, 211, 0);}
+    100% {border: 1px solid rgba(43, 47, 54, 0.8);}
+}
+
+.HighlightInput {
+    animation-name: inputBorder;
+    animation-duration: 3s;
+}
 
   
 .CalculateButton {
@@ -104,6 +115,7 @@
     background-color:rgb(255, 238, 0);
     font-family: 'M PLUS 1', sans-serif;
     font-size: 1rem;
+    font-weight: 700;
 }
 
 .CalculateButton:hover {

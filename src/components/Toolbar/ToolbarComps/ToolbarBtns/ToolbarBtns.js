@@ -8,10 +8,10 @@ const ToolbarBtns = (props) => {
     const screenSize = useSelector(state => state.screenSize);
 
     const toolbarButtons = [ 
-        {name: "Home", linkTo: "/"}, 
-        {name: "About", linkTo: "/about"}, 
-        {name: "Projects", linkTo: "/projects"}, 
-        {name: "Contact", linkTo: "/contact"} ]
+        {name: "Calculator", linkTo: "/"}, 
+        {name: "How to use", linkTo: "/tutorial"}, 
+        {name: "Armor Basics", linkTo: "/article"}, 
+    ]
 
     return (
             <div className={

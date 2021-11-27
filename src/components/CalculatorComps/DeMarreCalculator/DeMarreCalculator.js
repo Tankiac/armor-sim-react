@@ -2,8 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
 
-import shellData from "../../utility/shellData";
-import plateData from "../../utility/plateData";
+import shellData from "../../../utility/shellData";
+import plateData from "../../../utility/plateData";
 
 import classes from "./DeMarreCalculator.module.css"
 
@@ -15,6 +15,8 @@ const DeMarreCalculator = (props) => {
     const [targetTankPreset, setTargetTankPreset] = useState(null);
     const [platePreset, setPlatePreset] = useState(null);
     const [plateNames, setPlateNames] = useState(null);
+    const [highlightInput, setHighlightInput] = useState(null);
+    const [prevAngleOfImpact, setPrevAngleOfImpact] = useState(45);
 
     const [shellMass, setShellMass] = useState(3.14);
     const [shellDiameter, setShellDiameter] = useState(57);
@@ -24,9 +26,21 @@ const DeMarreCalculator = (props) => {
     const [deMarreConst, setDeMarreConst] = useState(2400);
     const [thicknessConst, setThicknessConst] = useState(1.4);
 
+    const shellMassInput = useRef();
+    const shellDiameterInput = useRef();
+    const shellVelocityInput = useRef();
+    const plateAngleInput = useRef();
+    const plateThicknessInput = useRef();
+    const deMarreConstInput = useRef();
+    const thicknessConstInput = useRef();
+
     const dispatch = useDispatch();
 
     const angleOfImpact = Math.round(useSelector(state => state.angleOfImpact))
+
+    const focusInput = (input) => {
+        input.current.focus();
+    }
 
     const onCalculate = () => {
         setResult(calculatePenetration());
@@ -114,6 +128,7 @@ const DeMarreCalculator = (props) => {
     }
 
     const renderCounter = useRef(0);
+    const highlightRenderCounter = useRef(0);
 
     useEffect(() => {
         if (renderCounter.current > 2) {
@@ -125,6 +140,12 @@ const DeMarreCalculator = (props) => {
 
         } else renderCounter.current++
     }, [angleOfImpact, plateThickness])
+
+    useEffect(() => {
+        if (highlightRenderCounter.current > 2) {
+                setHighlightInput(classes.HighlightInput);
+        } else highlightRenderCounter.current++
+    }, [angleOfImpact])
 
     const getShellNames = () => {
         let shellNames = [];
@@ -283,11 +304,12 @@ const DeMarreCalculator = (props) => {
             <div className={classes.Container}>
                 <div className={classes.InputContainer}>
                     <label htmlFor="shellMass">Shell Mass</label>
-                    <div className={classes.InputWrapper}>
+                    <div className={classes.InputWrapper} onClick={() => {focusInput(shellMassInput)}}>
                         <input 
                             type="number" 
                             id="shellMass" 
                             value={shellMass}
+                            ref={shellMassInput}
                             onInput={onInputShellMass}
                             className={classes.Input}/>
                             <div className={classes.MeasuringUnit}>kg</div>
@@ -295,11 +317,12 @@ const DeMarreCalculator = (props) => {
                 </div>
                 <div className={classes.InputContainer}>
                     <label htmlFor="shellDiameter">Shell Diameter</label>
-                    <div className={classes.InputWrapper}>
+                    <div className={classes.InputWrapper} onClick={() => {focusInput(shellDiameterInput)}}>
                         <input 
                             type="number" 
                             id="shellDiameter" 
                             value={shellDiameter}
+                            ref={shellDiameterInput}
                             onInput={onInputShellDiameter}
                             className={classes.Input}/>
                             <div className={classes.MeasuringUnit}>mm</div>
@@ -307,11 +330,12 @@ const DeMarreCalculator = (props) => {
                 </div>
                 <div className={classes.InputContainer}>
                     <label htmlFor="shellVelocity">Shell Velocity</label>
-                    <div className={classes.InputWrapper}>
+                    <div className={classes.InputWrapper} onClick={() => {focusInput(shellVelocityInput)}}>
                         <input 
                             type="number" 
                             id="shellVelocity" 
                             value={shellVelocity}
+                            ref={shellVelocityInput}
                             onInput={onInputShellVelocity}
                             className={classes.Input}/>
                             <div className={classes.MeasuringUnit}>m/s</div>
@@ -319,11 +343,12 @@ const DeMarreCalculator = (props) => {
                 </div>
                 <div className={classes.InputContainer}>
                     <label htmlFor="plateObliquity">Plate angle</label>
-                    <div className={classes.InputWrapper}>
+                    <div className={classes.InputWrapper} onClick={() => {focusInput(plateAngleInput)}}>
                         <input 
                             type="number" 
                             id="plateObliquity" 
                             value={plateAngle} 
+                            ref={plateAngleInput}
                             onInput={onInputPlateAngle}
                             className={classes.Input}/>
                             <div className={classes.MeasuringUnit}>°</div>
@@ -331,7 +356,7 @@ const DeMarreCalculator = (props) => {
                 </div>
                 <div className={classes.InputContainer}>
                     <label htmlFor="angleOfImpact">Angle of Impact</label>
-                    <div className={`${classes.InputWrapper} ${classes.UnchangeableInputWrapper}`}>
+                    <div className={`${classes.InputWrapper} ${classes.UnchangeableInputWrapper} ${highlightInput}`}>
                         <input 
                             type="number" 
                             id="angleOfImpact" 
@@ -344,11 +369,12 @@ const DeMarreCalculator = (props) => {
                 </div>
                 <div className={classes.InputContainer}>
                     <label htmlFor="plateThickness">Plate thickness</label>
-                    <div className={classes.InputWrapper}>
+                    <div className={classes.InputWrapper} onClick={() => {focusInput(plateThicknessInput)}}>
                         <input 
                             type="number" 
                             id="plateThickness" 
                             value={plateThickness}
+                            ref={plateThicknessInput}
                             onInput={onInputPlateThickness}
                             className={classes.Input}/>
                             <div className={classes.MeasuringUnit}>mm</div>
@@ -356,26 +382,28 @@ const DeMarreCalculator = (props) => {
                 </div>
                 <div className={classes.InputContainer}>
                     <label htmlFor="deMarreConst">K - const.</label>
-                    <div className={classes.InputWrapper}>
+                    <div className={classes.InputWrapper} onClick={() => {focusInput(deMarreConstInput)}}>
                         <input 
                             type="number" 
                             id="deMarreConst" 
                             value={deMarreConst}
+                            ref={deMarreConstInput}
                             onInput={onInputDeMarreConst}
                             className={classes.Input}/>
-                            <div className={classes.MeasuringUnit}></div>
+                            <div className={classes.MeasuringUnit}>-</div>
                     </div>
                 </div>
                 <div className={classes.InputContainer}>
                     <label htmlFor="thicknessConst">n - const.</label>
-                    <div className={classes.InputWrapper}>
+                    <div className={classes.InputWrapper} onClick={() => {focusInput(thicknessConstInput)}}>
                         <input 
                             type="number"  
                             id="thicknessConst" 
                             value={thicknessConst}
+                            ref={thicknessConstInput}
                             onInput={onInputThicknessConst}
                             className={classes.Input}/>
-                            <div className={classes.MeasuringUnit}></div>
+                            <div className={classes.MeasuringUnit}>-</div>
                     </div>
                 </div>
             </div>

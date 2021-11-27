@@ -1,5 +1,5 @@
 .ToolbarBtn {
-    width: 110px;
+    width: 125px;
     padding: 0;
     font-size: 1.1rem;
     background-color: rgba(0, 0, 0, 0);
@@ -10,7 +10,7 @@
 }
 
 .ToolbarBtnLarge {
-    height: 50px;
+    height: 60px;
 }
 
 .ToolbarBtnSmall {
@@ -26,17 +26,12 @@
 }
 
 .ToolbarBtnActive {
-    border-bottom: 3px solid rgb(248, 232, 0);
-    margin-bottom: -3px;
+    border-bottom: 2px solid rgb(248, 232, 0);
+    margin-bottom: -2px;
 }
 
 .ToolbarBtn:hover {
     cursor: pointer;
-    border-bottom: 3px solid rgb(248, 232, 0);
-    margin-bottom: -3px;
-}
-
-.ToolbarBtnActive {
-    border-bottom: 3px solid rgb(248, 232, 0);
-    margin-bottom: -3px;
+    border-bottom: 2px solid rgb(248, 232, 0);
+    margin-bottom: -2px;
 }

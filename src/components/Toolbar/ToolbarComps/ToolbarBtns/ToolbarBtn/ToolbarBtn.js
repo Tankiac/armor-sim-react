@@ -14,11 +14,7 @@ const ToolbarBtn = (props) => {
         classes.ToolbarBtnLarge : screenSize === "small" ? 
         classes.ToolbarBtnSmall : classes.ToolbarBtnExtraSmall}`;
 
-        if (props.btnColor === "white") {
-            classString = classString.concat(` ${classes.ToolbarBtnWhite}`)
-        } else if (props.btnColor === "black") {
-            classString = classString.concat(` ${classes.ToolbarBtnBlack}`)
-        }
+        classString = classString.concat(` ${classes.ToolbarBtnBlack}`)
         if (activeToolbarBtn === props.name.toLowerCase()) {
             classString = classString.concat(` ${classes.ToolbarBtnActive}`)
         }
