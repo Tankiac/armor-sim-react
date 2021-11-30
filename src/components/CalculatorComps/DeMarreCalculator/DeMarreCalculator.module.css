@@ -5,6 +5,42 @@
     grid-row: 2;
     background-color: rgb(30, 33, 38);
     color: #eaecef;
+    overflow: auto;
+
+    
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+  
+::-webkit-scrollbar-track {
+    background: #eaecef; 
+}
+   
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+  
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+
+.ArrowContainer {
+    margin-top: 6px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.ShowCalculatorArrow {
+    width: 25px;
+    height: 25px;
+}
+
+.HideInputs {
+    display: none !important;
 }
 
 .Container {
@@ -16,7 +52,7 @@
     margin-top: 5px;
     display: grid;
     grid-auto-rows: 40px;
-    padding: 20px;
+    padding: 0px 20px;
     align-items: center;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -109,6 +145,7 @@
     height: 40px;
     width: 140px;
     margin: 0 auto;
+    margin-top: 20px;
     cursor: pointer;
     border: none;
     border-radius: 10px;
@@ -126,6 +163,7 @@
     width: 80%;
     margin: 0 auto;
     margin-top: 15px;
+    margin-bottom: 30px;
     font-size: 1.6rem;
     text-align: center;
 }

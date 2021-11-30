@@ -10,7 +10,7 @@ const ToolbarBtns = (props) => {
     const toolbarButtons = [ 
         {name: "Calculator", linkTo: "/"}, 
         {name: "How to use", linkTo: "/tutorial"}, 
-        {name: "Armor Basics", linkTo: "/article"}, 
+        //{name: "Armor Basics", linkTo: "/article"}, 
     ]
 
     return (

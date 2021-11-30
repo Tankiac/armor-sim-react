@@ -6,11 +6,13 @@ const mainReducer = (state = {
         plateAngle: 45, 
         angleOfImpact: 45,
         plateThickness: 50,
-        activeToolbarBtn: "calculator"
+        activeToolbarBtn: "calculator",
+        screenDimensions: { width: 1600, height: 1000 }
     }, action ) => {
     switch (action.type) {
         case "flash": return { ...state, flashMessage: action.payload.flashMessage, flashType: action.payload.flashType } || state;
         case "setScreenSize": return { ...state, screenSize: action.payload.screenSize } || state;
+        case "setScreenDimensions": return { ...state, screenDimensions: action.payload.screenDimensions } || state;
         case "setPlateAngle": return { ...state, plateAngle: action.payload.plateAngle } || state;
         case "setAngleOfImpact": return { ...state, angleOfImpact: action.payload.angleOfImpact } || state;
         case "setPlateThickness": return { ...state, plateThickness: action.payload.plateThickness } || state;

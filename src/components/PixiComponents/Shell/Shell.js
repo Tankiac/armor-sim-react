@@ -32,18 +32,23 @@ const Shell = ({ x = 400, y = 300, ...props }) => {
         const onUp = useCallback(() => setIsDragging(false), []);
         const onMove = useCallback(e => {
           if (isDragging && sprite.current) {
-            setPosition(e.data.getLocalPosition(sprite.current.parent));
-            props.setShellPosition(
-              { 
-                x: e.data.getLocalPosition(sprite.current.parent).x,
-                y: e.data.getLocalPosition(sprite.current.parent).y
-              }
-            )
+            let currentX = e.data.getLocalPosition(sprite.current.parent).x;
+            let currentY = e.data.getLocalPosition(sprite.current.parent).y;
 
-            let a = plateX - e.data.getLocalPosition(sprite.current.parent).x
-            let b = plateY - e.data.getLocalPosition(sprite.current.parent).y
+            if (currentX > 0 && currentY > 0) {
+              setPosition(e.data.getLocalPosition(sprite.current.parent));
+              props.setShellPosition(
+                { 
+                  x: currentX,
+                  y: currentY
+                }
+              )
 
-            setShellAngle(Math.asin(a / Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2))) + degToRad(270))
+              let a = plateX - currentX
+              let b = plateY - currentY
+
+              setShellAngle(Math.asin(a / Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2))) + degToRad(270))
+            }
           }
         }, [isDragging, setPosition]);
         

@@ -11,7 +11,7 @@ const plateData = [
             {
                 plateName: "Lower front plate",
                 thickness: 65,
-                angle: 55
+                angle: 360 - 55
             },
             {
                 plateName: "Gun mantlet",
@@ -47,7 +47,7 @@ const plateData = [
             {
                 plateName: "Lower front plate",
                 thickness: 102,
-                angle: 20
+                angle: 360 - 20
             },
             {
                 plateName: "Gun mantlet",
@@ -83,7 +83,7 @@ const plateData = [
             {
                 plateName: "Lower front plate",
                 thickness: 100,
-                angle: 50
+                angle: 360 - 50
             },
             {
                 plateName: "Turret front",
@@ -119,7 +119,7 @@ const plateData = [
             {
                 plateName: "Lower front plate",
                 thickness: 80,
-                angle: 12
+                angle: 360 - 12
             },
             {
                 plateName: "Turret front",
@@ -229,7 +229,7 @@ const plateData = [
             {
                 plateName: "Lower front plate",
                 thickness: 76.2,
-                angle: 53
+                angle: 360 - 53
             },
             {
                 plateName: "Gun mantlet",
@@ -262,7 +262,7 @@ const plateData = [
             {
                 plateName: "Lower front plate",
                 thickness: 45,
-                angle: 60
+                angle: 360 - 60
             },
             {
                 plateName: "Turret front",
@@ -298,7 +298,7 @@ const plateData = [
             {
                 plateName: "Lower front plate",
                 thickness: 75,
-                angle: 26
+                angle: 360 - 26
             },
             {
                 plateName: "Gun mantlet",
@@ -329,7 +329,7 @@ const plateData = [
             {
                 plateName: "Lower front plate",
                 thickness: 100,
-                angle: 29
+                angle: 360 - 29
             },
             {
                 plateName: "Gun mantlet",

@@ -11,6 +11,11 @@
     font-family: 'M PLUS 1', sans-serif;
 }
 
+.TutorialArticleMedium {
+    width: 95%;
+    max-width: 95%;
+}
+
 .SubTitle {
     padding-left: 20px;
     margin-bottom: 0px;
@@ -30,6 +35,7 @@
 .Image {
     display: block;
     width: 500px;
+    max-width: 80%;
     margin: 30px auto;
 }
 

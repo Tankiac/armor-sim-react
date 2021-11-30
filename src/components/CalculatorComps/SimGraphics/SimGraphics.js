@@ -22,11 +22,12 @@ const SimGraphics = (props) => {
     const dispatch = useDispatch();
     const plateAngle = useSelector(state => state.plateAngle);
     const screenSize = useSelector(state => state.screenSize);
+    const screenDimensions = useSelector(state => state.screenDimensions);
 
     const simGraphicsRef = useRef()
     
-    const [stageWidth, setStageWidth] = useState(1579);
-    const [stageHeight, setStageHeight] = useState(913);
+    const [stageWidth, setStageWidth] = useState(window.innerWidth - 341);
+    const [stageHeight, setStageHeight] = useState(window.innerHeight - 60);
     const [shellPosition, setShellPosition] = useState({x: 300, y: stageHeight / 2});
     const [shellDistanceToPlate, setShellDistanceToPlate] = useState(null);
     const [shellDistanceToPlateEdge, setShellDistanceToPlateEdge] = useState(null);
@@ -86,9 +87,9 @@ const SimGraphics = (props) => {
     }, [shellDistanceToPlateEdge, shellDistanceToPlate])
 
     useEffect(() => {
-        setStageHeight(simGraphicsRef.current.clientHeight);
-        setStageWidth(simGraphicsRef.current.clientWidth);
-    }, [screenSize])
+        setStageHeight(screenDimensions.height - 60);
+        setStageWidth(screenDimensions.width - 341);
+    }, [screenDimensions])
 
     return (
             <div className={classes.SimGraphics} ref={simGraphicsRef}>

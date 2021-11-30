@@ -5,6 +5,9 @@ import Select from "react-select";
 import shellData from "../../../utility/shellData";
 import plateData from "../../../utility/plateData";
 
+import downArrow from "../../../assets/images/DownArrow.png"
+import upArrow from "../../../assets/images/UpArrow.png"
+
 import classes from "./DeMarreCalculator.module.css"
 
 
@@ -16,7 +19,7 @@ const DeMarreCalculator = (props) => {
     const [platePreset, setPlatePreset] = useState(null);
     const [plateNames, setPlateNames] = useState(null);
     const [highlightInput, setHighlightInput] = useState(null);
-    const [prevAngleOfImpact, setPrevAngleOfImpact] = useState(45);
+    const [showInputs, setShowInputs] = useState(true);
 
     const [shellMass, setShellMass] = useState(3.14);
     const [shellDiameter, setShellDiameter] = useState(57);
@@ -120,7 +123,8 @@ const DeMarreCalculator = (props) => {
     }
 
     const onSelectTargetTankPreset = (e) => {
-        setTargetTankPreset(e.value)
+        setTargetTankPreset(e.value);
+        changePlate();
     }
 
     const onSelectPlatePreset = (e) => {
@@ -189,12 +193,8 @@ const DeMarreCalculator = (props) => {
 
         return plateNames;
     }
-    
-    useEffect(() => {
-        setPlateNames(getPlateNames());
-    }, [targetTankPreset])
 
-    useEffect(() => {
+    const changePlate = () => {
         if (platePreset) {
             setPlateAngle(platePreset.angle)
             dispatch({
@@ -202,10 +202,26 @@ const DeMarreCalculator = (props) => {
                 payload: {
                     plateAngle: platePreset.angle
                 }
-            }) 
+            })
             setPlateThickness(platePreset.thickness)
+            console.log(platePreset)
+            console.log(plateNames)
         }
-        
+        console.log("changePlate ran")
+    }
+    
+    useEffect(() => {
+        setPlateNames(getPlateNames());
+    }, [targetTankPreset])
+
+    useEffect(() => {
+        if (platePreset) {
+            setPlatePreset(plateNames.find(plate => plate.value.plateName === platePreset.plateName).value);
+        }
+    }, [plateNames])
+
+    useEffect(() => {
+        changePlate();
     }, [platePreset])
 
     useEffect(() => {
@@ -300,8 +316,13 @@ const DeMarreCalculator = (props) => {
                     />
             </div>
 
-            
-            <div className={classes.Container}>
+            <div 
+                className={classes.ArrowContainer}
+                onClick={() => {setShowInputs(!showInputs)}}>
+                <img className={classes.ShowCalculatorArrow} src={showInputs ? upArrow : downArrow}/>
+            </div>
+
+            <div className={`${classes.Container} ${!showInputs ? classes.HideInputs : null}`}>
                 <div className={classes.InputContainer}>
                     <label htmlFor="shellMass">Shell Mass</label>
                     <div className={classes.InputWrapper} onClick={() => {focusInput(shellMassInput)}}>
@@ -412,10 +433,19 @@ const DeMarreCalculator = (props) => {
                     onClick={() => {onCalculate()}}>
                         Calculate
                 </button>
-            {result && <div 
+            {result ? <div 
                 className={`${classes.Result} ${classes.Unselectable}`}>
-                    Effective penetration <span className={`${result*100 > plateThickness * 1.05 ? classes.SuccessText : result*100 > plateThickness * 0.9 ? classes.MixedText : classes.FailText}`}>{Math.round(result*100)}mm</span>
-                </div>}
+                    Effective penetration <span className={`${result*100 > plateThickness * 1.00 ? classes.SuccessText : result*100 > plateThickness * 0.9 ? classes.MixedText : classes.FailText}`}>{Math.round(result*100)}mm</span>
+                    {
+                        result*100 > plateThickness * 1.00 ? <div className={classes.SuccessText}>Complete penetration</div> :
+                        result*100 > plateThickness * 0.9 ? <div className={classes.MixedText}>Partial penetration</div> :
+                        result*100 < plateThickness * 0.9 ? <div className={classes.FailText}>No penetration</div> : null
+                    }
+                </div>
+                : isNaN(result) ? <div 
+                    className={`${classes.Result} ${classes.Unselectable}`}>
+                        <div className={classes.FailText}>Error</div> Please input valid values
+                </div> : null}
             {/*effectiveThickness && <div className={`${classes.Result} ${classes.Unselectable}`}>Effective thickness {Math.round(effectiveThickness)}mm</div>*/}
         </div>
     )

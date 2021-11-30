@@ -13,12 +13,23 @@ const ScreenSizeProvider = (props) => {
         })
     };
 
+    const updateScreenDimensions = (screenDimensions) => {
+        dispatch({
+            type: "setScreenDimensions",
+            payload: {
+                screenDimensions: { ...screenDimensions }
+            }
+        })
+    };
+
     const mediumBreakpoint = 1150;
     const smallBreakpoint = 700;
     const extraSmallBreakpoint = 500;
 
     useEffect(() => {
         setTimeout(() => {  // setTimeout because window.innerWidth returns wrong value without it
+            updateScreenDimensions({ width: window.innerWidth, height: window.innerHeight })
+
             if (window.innerWidth < mediumBreakpoint && window.innerWidth > smallBreakpoint) 
         {
             updateScreenSize("medium")
