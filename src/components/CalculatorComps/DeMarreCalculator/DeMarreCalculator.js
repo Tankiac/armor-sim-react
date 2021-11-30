@@ -128,7 +128,7 @@ const DeMarreCalculator = (props) => {
     }
 
     const onSelectPlatePreset = (e) => {
-        setPlatePreset(e.value)
+        setPlatePreset(e.value);
     }
 
     const renderCounter = useRef(0);
@@ -204,10 +204,7 @@ const DeMarreCalculator = (props) => {
                 }
             })
             setPlateThickness(platePreset.thickness)
-            console.log(platePreset)
-            console.log(plateNames)
         }
-        console.log("changePlate ran")
     }
     
     useEffect(() => {
@@ -216,7 +213,12 @@ const DeMarreCalculator = (props) => {
 
     useEffect(() => {
         if (platePreset) {
-            setPlatePreset(plateNames.find(plate => plate.value.plateName === platePreset.plateName).value);
+            if (plateNames.find(plate => plate.value.plateName === platePreset.plateName)) {
+                setPlatePreset(plateNames.find(plate => plate.value.plateName === platePreset.plateName).value);
+            }
+            else {
+                setPlatePreset(plateNames[0].value);
+            }
         }
     }, [plateNames])
 
