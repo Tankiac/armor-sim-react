@@ -40,6 +40,7 @@ const DeMarreCalculator = (props) => {
     const dispatch = useDispatch();
 
     const angleOfImpact = Math.round(useSelector(state => state.angleOfImpact))
+    const angleOfImpactPrecise = useSelector(state => state.angleOfImpact)
 
     const focusInput = (input) => {
         input.current.focus();
@@ -63,7 +64,7 @@ const DeMarreCalculator = (props) => {
                 ( 
                     (
                         shellMass * Math.pow( 
-                            (shellVelocity * Math.cos(angleOfImpact !== 0 ? degreesToRadians(angleOfImpact) : 0) ), 2
+                            (shellVelocity * Math.cos(angleOfImpactPrecise !== 0 ? degreesToRadians(angleOfImpactPrecise) : 0) ), 2
                         ) 
                     ) 
                         / 
@@ -143,7 +144,7 @@ const DeMarreCalculator = (props) => {
             setEffectiveThickness(hypotenuse)
 
         } else renderCounter.current++
-    }, [angleOfImpact, plateThickness])
+    }, [angleOfImpactPrecise, plateThickness])
 
     useEffect(() => {
         if (highlightRenderCounter.current > 2) {
