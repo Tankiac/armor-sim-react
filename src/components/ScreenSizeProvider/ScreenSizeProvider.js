@@ -42,6 +42,8 @@ const ScreenSizeProvider = (props) => {
         }
         }, 1);
         window.addEventListener("resize", () => {
+            updateScreenDimensions({ width: window.innerWidth, height: window.innerHeight })
+
             if (window.innerWidth < smallBreakpoint && window.innerWidth > extraSmallBreakpoint) 
         {
             updateScreenSize("small")
@@ -54,6 +56,8 @@ const ScreenSizeProvider = (props) => {
         }
         });
         return () => window.removeEventListener("resize", () => {
+            updateScreenDimensions({ width: window.innerWidth, height: window.innerHeight })
+
             if (window.innerWidth < smallBreakpoint && window.innerWidth > extraSmallBreakpoint) 
         {
             updateScreenSize("small")

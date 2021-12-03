@@ -139,9 +139,9 @@ const DeMarreCalculator = (props) => {
         if (renderCounter.current > 2) {
             onCalculate()
 
-            let hypotenuse;
-            hypotenuse = plateThickness / Math.sin(degreesToRadians(90 - angleOfImpact));
-            setEffectiveThickness(hypotenuse)
+            //let hypotenuse;
+            //hypotenuse = plateThickness / Math.sin(degreesToRadians(90 - angleOfImpact));
+            //setEffectiveThickness(hypotenuse)
 
         } else renderCounter.current++
     }, [angleOfImpactPrecise, plateThickness])

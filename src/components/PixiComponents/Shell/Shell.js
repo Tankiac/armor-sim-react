@@ -1,11 +1,11 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback, useEffect } from "react";
 import { DashLine } from 'pixi-dashed-line'
 
 import { Graphics, Sprite, useTick } from "@inlet/react-pixi";
 import PlaceholderShell from "../../../assets/images/PlaceholderShell.png"
 
 
-const Shell = ({ x = 400, y = 300, ...props }) => {
+const Shell = (props) => {
 
     function degToRad(degrees) {
         return degrees * (Math.PI / 180);
@@ -15,18 +15,24 @@ const Shell = ({ x = 400, y = 300, ...props }) => {
         return rad / (Math.PI / 180);
       };
 
-      const [position, setPosition] = useState({ x, y });
-
       const sprite = useRef();
       const trajectoryLine = useRef();
 
-      const [plateX, plateY] = [props.stageWidth / 1.35, props.stageHeight / 2]
+      const [position, setPosition] = useState({ x: props.shellX, y: props.shellY });
+      const [shellAngle, setShellAngle] = useState(degToRad(0));
+
+      useEffect(() => {
+          setShellAngle(degToRad(360))
+      }, [props.stageHeight, props.stageWidth])
+
+      useEffect(() => {
+        setPosition({ x: props.shellX, y: props.shellY })
+        props.setShellPosition({ x: props.shellX, y: props.shellY })
+      }, [props.shellX, props.shellY])
 
     const useDrag = () => {
         
         const [isDragging, setIsDragging] = useState(false);
-        
-        const [shellAngle, setShellAngle] = useState(degToRad(0))
 
         const onDown = useCallback(() => setIsDragging(true), []);
         const onUp = useCallback(() => setIsDragging(false), []);
@@ -44,8 +50,8 @@ const Shell = ({ x = 400, y = 300, ...props }) => {
                 }
               )
 
-              let a = plateX - currentX
-              let b = plateY - currentY
+              let a = props.plateX - currentX
+              let b = props.plateY - currentY
 
               setShellAngle(Math.asin(a / Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2))) + degToRad(270))
             }
@@ -62,22 +68,22 @@ const Shell = ({ x = 400, y = 300, ...props }) => {
           alpha: isDragging ? 0.5 : 1,
           anchor: 0.5,
           position,
-          rotation: position.y < plateY ? degToRad(360) - shellAngle : shellAngle
         };
       };
 
     const bindDrag = useDrag();
 
     const drawTrajectoryLine = useCallback(g => {
-      if (position.x === x && position.y === y) {
+      g.clear();
+      if (position.x === props.shellX && position.y === props.shellY) {
         const dash = new DashLine(g, {
           dash: [20, 10],
           width: 2,
           color: 0xe8e400,
       })
-        dash.moveTo(x, y)
-        .lineTo(plateX, plateY)
-      } else if (position.x !== x || position.y !== y) {
+        dash.moveTo(props.shellX, props.shellY)
+        .lineTo(props.plateX, props.plateY)
+      } else if (position.x !== props.shellX || position.y !== props.shellY) {
         g.clear()
         const dash = new DashLine(g, {
           dash: [20, 10],
@@ -85,15 +91,15 @@ const Shell = ({ x = 400, y = 300, ...props }) => {
           color: 0xe8e400,
       })
         dash.moveTo(position.x, position.y)
-        .lineTo(plateX, plateY)
+        .lineTo(props.plateX, props.plateY)
       }
       
-    }, [position])
+    }, [props, position])
 
     useTick((delta) => {
       const g = trajectoryLine.current;
       g.moveTo(sprite.current.position)
-      .lineTo(plateX, plateY)
+      .lineTo(props.plateX, props.plateY)
     })
 
     return (
@@ -105,6 +111,7 @@ const Shell = ({ x = 400, y = 300, ...props }) => {
         image={PlaceholderShell}
         scale={1}
         ref={sprite}
+        rotation={position.y < props.plateY ? degToRad(360) - shellAngle : shellAngle}
         {...bindDrag}
         {...props}
         />

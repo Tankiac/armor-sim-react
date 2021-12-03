@@ -6,19 +6,20 @@ const Grid = (props) => {
     const gridDensity = 45;
 
     const drawGrid = React.useCallback(g => {
+            g.clear()
         for (let i = 1; i < props.stageWidth / gridDensity; i++) {
-            g.beginFill(0x000000)
-            .lineStyle(1, 0xcccccc)
+            
+            g.lineStyle(1, 0xcccccc)
             .moveTo(i*gridDensity, 0)
             .lineTo(i*gridDensity, props.stageHeight)
             
-            g.beginFill(0x000000)
-            .lineStyle(1, 0xcccccc)
-            .moveTo(0, i*gridDensity)
+            g.moveTo(0, i*gridDensity)
             .lineTo(props.stageWidth, i*gridDensity)
+
+            //console.log(`i:${i} stageHeight:${props.stageHeight} stageWidth:${props.stageWidth} gridDensity:${gridDensity}`)
         }
         
-    }, [])
+    }, [props.stageHeight, props.stageWidth])
 
     return (
         <Graphics draw={drawGrid}/>

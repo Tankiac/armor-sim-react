@@ -25,20 +25,32 @@ const SimGraphics = (props) => {
     const screenDimensions = useSelector(state => state.screenDimensions);
 
     const simGraphicsRef = useRef()
+    const stageRef = useRef()
     
     const [stageWidth, setStageWidth] = useState(window.innerWidth - 341);
     const [stageHeight, setStageHeight] = useState(window.innerHeight - 60);
     const [shellPosition, setShellPosition] = useState({x: 300, y: stageHeight / 2});
     const [shellDistanceToPlate, setShellDistanceToPlate] = useState(null);
     const [shellDistanceToPlateEdge, setShellDistanceToPlateEdge] = useState(null);
-
-    const plateX = stageWidth / 1.35;
-    const plateY = stageHeight / 2;
+    const [plateX, setPlateX] = useState(stageWidth / 1.35);
+    const [plateY, setPlateY] = useState(stageHeight / 2);
+    const [shellX, setShellX] = useState(stageWidth / 5);
+    const [shellY, setShellY] = useState(stageHeight / 2);
 
     const plateWidth = 500;
     const plateHeight = 50;
 
     const halfPlateWidth = plateWidth / 2;
+
+    useEffect(() => {
+        setShellX(stageWidth / 5);
+        setShellY(stageHeight / 2);
+    }, [stageWidth, stageHeight])
+
+    useEffect(() => {
+        setPlateX(stageWidth / 1.35);
+        setPlateY(stageHeight / 2);
+    }, [stageWidth, stageHeight])
 
     useEffect(() => {
         let shellDistanceToPlate = 
@@ -91,12 +103,19 @@ const SimGraphics = (props) => {
         setStageWidth(screenDimensions.width - 341);
     }, [screenDimensions])
 
+    useEffect(() => {
+        stageRef.current.width = stageWidth;
+        stageRef.current.height = stageHeight;
+    }, [stageHeight, stageWidth])
+
     return (
             <div className={classes.SimGraphics} ref={simGraphicsRef}>
                 <Stage 
                     width={stageWidth} 
                     height={stageHeight}
-                    
+                    id="stage"
+                    ref={stageRef}
+
                     options={{
                         backgroundAlpha: 0,
                         antialias: true,
@@ -106,18 +125,19 @@ const SimGraphics = (props) => {
                             stageHeight={stageHeight} 
                             stageWidth={stageWidth}/>
                         <Shell 
-                            x={300} 
-                            y = {stageHeight / 2} 
+                            shellX={shellX} 
+                            shellY={shellY} 
                             scale={0.5} 
                             setShellPosition={setShellPosition} 
                             stageWidth={stageWidth} 
-                            stageHeight={stageHeight}/>
+                            stageHeight={stageHeight}
+                            plateX={plateX}
+                            plateY={plateY}/>
                         <Plate 
                             plateAngle={plateAngle} 
                             plateWidth={plateWidth}
                             plateHeight={plateHeight}
-                            x = {plateX} 
-                            y = {plateY} 
+                            position={{x: plateX, y: plateY}}
                             stageWidth={stageWidth} 
                             stageHeight={stageHeight}/>
                 </Stage>
