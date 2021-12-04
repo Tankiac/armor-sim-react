@@ -7,7 +7,8 @@ const Grid = (props) => {
 
     const drawGrid = React.useCallback(g => {
             g.clear()
-        for (let i = 1; i < props.stageWidth / gridDensity; i++) {
+            
+        for (let i = 1; i < props.stageWidth || i < props.stageHeight / gridDensity; i++) {
             
             g.lineStyle(1, 0xcccccc)
             .moveTo(i*gridDensity, 0)

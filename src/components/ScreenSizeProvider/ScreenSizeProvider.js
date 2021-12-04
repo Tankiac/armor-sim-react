@@ -23,7 +23,7 @@ const ScreenSizeProvider = (props) => {
     };
 
     const mediumBreakpoint = 1150;
-    const smallBreakpoint = 700;
+    const smallBreakpoint = 800;
     const extraSmallBreakpoint = 500;
 
     useEffect(() => {

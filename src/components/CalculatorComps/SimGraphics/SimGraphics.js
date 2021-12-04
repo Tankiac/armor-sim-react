@@ -36,8 +36,9 @@ const SimGraphics = (props) => {
     const [plateY, setPlateY] = useState(stageHeight / 2);
     const [shellX, setShellX] = useState(stageWidth / 5);
     const [shellY, setShellY] = useState(stageHeight / 2);
+    const [shellScale, setShellScale] = useState(0.5);
+    const [plateWidth, setPlateWidth] = useState(500);
 
-    const plateWidth = 500;
     const plateHeight = 50;
 
     const halfPlateWidth = plateWidth / 2;
@@ -101,15 +102,29 @@ const SimGraphics = (props) => {
     useEffect(() => {
         setStageHeight(screenDimensions.height - 60);
         setStageWidth(screenDimensions.width - 341);
+
+        if (screenDimensions.width < 1000) {
+            setShellScale(0.4);
+            setPlateWidth(300);
+            setPlateX(stageWidth / 1.45);
+            setShellX(stageWidth / 5.5);
+        } else if (screenDimensions.width < 1200) {
+            setShellScale(0.4);
+            setPlateWidth(400);
+            setPlateX(stageWidth / 1.35);
+            setShellX(stageWidth / 5);
+        } else {
+            setShellScale(0.5);
+            setPlateWidth(500);
+            setPlateX(stageWidth / 1.35);
+            setShellX(stageWidth / 5);
+        }
     }, [screenDimensions])
 
-    useEffect(() => {
-        stageRef.current.width = stageWidth;
-        stageRef.current.height = stageHeight;
-    }, [stageHeight, stageWidth])
-
     return (
-            <div className={classes.SimGraphics} ref={simGraphicsRef}>
+            <div 
+                className={`${classes.SimGraphics} ${screenDimensions.width < 800 ? classes.HideSimGraphics : null}`} 
+                ref={simGraphicsRef}>
                 <Stage 
                     width={stageWidth} 
                     height={stageHeight}
@@ -127,7 +142,7 @@ const SimGraphics = (props) => {
                         <Shell 
                             shellX={shellX} 
                             shellY={shellY} 
-                            scale={0.5} 
+                            scale={shellScale} 
                             setShellPosition={setShellPosition} 
                             stageWidth={stageWidth} 
                             stageHeight={stageHeight}

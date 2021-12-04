@@ -41,6 +41,7 @@ const DeMarreCalculator = (props) => {
 
     const angleOfImpact = Math.round(useSelector(state => state.angleOfImpact))
     const angleOfImpactPrecise = useSelector(state => state.angleOfImpact)
+    const screenDimensions = useSelector(state => state.screenDimensions)
 
     const focusInput = (input) => {
         input.current.focus();
@@ -136,18 +137,13 @@ const DeMarreCalculator = (props) => {
     const highlightRenderCounter = useRef(0);
 
     useEffect(() => {
-        if (renderCounter.current > 2) {
+        if (renderCounter.current > 6) {
             onCalculate()
-
-            //let hypotenuse;
-            //hypotenuse = plateThickness / Math.sin(degreesToRadians(90 - angleOfImpact));
-            //setEffectiveThickness(hypotenuse)
-
         } else renderCounter.current++
     }, [angleOfImpactPrecise, plateThickness])
 
     useEffect(() => {
-        if (highlightRenderCounter.current > 2) {
+        if (highlightRenderCounter.current > 5) {
                 setHighlightInput(classes.HighlightInput);
         } else highlightRenderCounter.current++
     }, [angleOfImpact])
@@ -326,7 +322,7 @@ const DeMarreCalculator = (props) => {
             </div>
 
             <div className={`${classes.Container} ${!showInputs ? classes.HideInputs : null}`}>
-                <div className={classes.InputContainer}>
+                <div className={`${classes.InputContainer} ${screenDimensions.width < 800 ? classes.InputContainerSmall : null}`}>
                     <label htmlFor="shellMass">Shell Mass</label>
                     <div className={classes.InputWrapper} onClick={() => {focusInput(shellMassInput)}}>
                         <input 
@@ -339,7 +335,7 @@ const DeMarreCalculator = (props) => {
                             <div className={classes.MeasuringUnit}>kg</div>
                     </div>
                 </div>
-                <div className={classes.InputContainer}>
+                <div className={`${classes.InputContainer} ${screenDimensions.width < 800 ? classes.InputContainerSmall : null}`}>
                     <label htmlFor="shellDiameter">Shell Diameter</label>
                     <div className={classes.InputWrapper} onClick={() => {focusInput(shellDiameterInput)}}>
                         <input 
@@ -352,7 +348,7 @@ const DeMarreCalculator = (props) => {
                             <div className={classes.MeasuringUnit}>mm</div>
                     </div>
                 </div>
-                <div className={classes.InputContainer}>
+                <div className={`${classes.InputContainer} ${screenDimensions.width < 800 ? classes.InputContainerSmall : null}`}>
                     <label htmlFor="shellVelocity">Shell Velocity</label>
                     <div className={classes.InputWrapper} onClick={() => {focusInput(shellVelocityInput)}}>
                         <input 
@@ -365,7 +361,7 @@ const DeMarreCalculator = (props) => {
                             <div className={classes.MeasuringUnit}>m/s</div>
                     </div>
                 </div>
-                <div className={classes.InputContainer}>
+                <div className={`${classes.InputContainer} ${screenDimensions.width < 800 ? classes.InputContainerSmall : null}`}>
                     <label htmlFor="plateObliquity">Plate angle</label>
                     <div className={classes.InputWrapper} onClick={() => {focusInput(plateAngleInput)}}>
                         <input 
@@ -378,7 +374,7 @@ const DeMarreCalculator = (props) => {
                             <div className={classes.MeasuringUnit}>°</div>
                     </div>
                 </div>
-                <div className={classes.InputContainer}>
+                {screenDimensions.width > 800 && <div className={`${classes.InputContainer} ${screenDimensions.width < 800 ? classes.InputContainerSmall : null}`}>
                     <label htmlFor="angleOfImpact">Angle of Impact</label>
                     <div className={`${classes.InputWrapper} ${classes.UnchangeableInputWrapper} ${highlightInput}`}>
                         <input 
@@ -390,8 +386,8 @@ const DeMarreCalculator = (props) => {
                             className={`${classes.Input} ${classes.UnchangeableInput}`}/>
                             <div className={classes.MeasuringUnit}>°</div>
                     </div>
-                </div>
-                <div className={classes.InputContainer}>
+                </div>}
+                <div className={`${classes.InputContainer} ${screenDimensions.width < 800 ? classes.InputContainerSmall : null}`}>
                     <label htmlFor="plateThickness">Plate thickness</label>
                     <div className={classes.InputWrapper} onClick={() => {focusInput(plateThicknessInput)}}>
                         <input 
@@ -404,7 +400,7 @@ const DeMarreCalculator = (props) => {
                             <div className={classes.MeasuringUnit}>mm</div>
                     </div>
                 </div>
-                <div className={classes.InputContainer}>
+                <div className={`${classes.InputContainer} ${screenDimensions.width < 800 ? classes.InputContainerSmall : null}`}>
                     <label htmlFor="deMarreConst">K - const.</label>
                     <div className={classes.InputWrapper} onClick={() => {focusInput(deMarreConstInput)}}>
                         <input 
@@ -417,7 +413,7 @@ const DeMarreCalculator = (props) => {
                             <div className={classes.MeasuringUnit}>-</div>
                     </div>
                 </div>
-                <div className={classes.InputContainer}>
+                <div className={`${classes.InputContainer} ${screenDimensions.width < 800 ? classes.InputContainerSmall : null}`}>
                     <label htmlFor="thicknessConst">n - const.</label>
                     <div className={classes.InputWrapper} onClick={() => {focusInput(thicknessConstInput)}}>
                         <input 
@@ -438,7 +434,7 @@ const DeMarreCalculator = (props) => {
                 </button>
             {result ? <div 
                 className={`${classes.Result} ${classes.Unselectable}`}>
-                    Effective penetration <span className={`${result*100 > plateThickness * 1.00 ? classes.SuccessText : result*100 > plateThickness * 0.9 ? classes.MixedText : classes.FailText}`}>{Math.round(result*100)}mm</span>
+                    Effective penetration <div className={`${result*100 > plateThickness * 1.00 ? classes.SuccessText : result*100 > plateThickness * 0.9 ? classes.MixedText : classes.FailText}`}>{Math.round(result*100)}mm</div>
                     {
                         result*100 > plateThickness * 1.00 ? <div className={classes.SuccessText}>Complete penetration</div> :
                         result*100 > plateThickness * 0.9 ? <div className={classes.MixedText}>Partial penetration</div> :

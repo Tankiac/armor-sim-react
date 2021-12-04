@@ -7,7 +7,11 @@ const TutorialArticle = (props) => {
     const screenSize = useSelector(state => state.screenSize);
 
     return (
-        <div className={`${classes.TutorialArticle} ${screenSize !== "large" ? classes.TutorialArticleMedium : null}`}>
+        <div className={
+            `${classes.TutorialArticle} 
+            ${screenSize !== "large" ? classes.TutorialArticleMedium : null}
+            ${screenSize === "small" || screenSize === "extraSmall" ? classes.TutorialArticleSmall : null}`}>
+            
             <h1>How to use</h1>
 
             <h2 className={classes.SubTitle}>About</h2>

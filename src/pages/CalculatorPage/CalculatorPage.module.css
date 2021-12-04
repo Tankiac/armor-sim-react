@@ -13,3 +13,9 @@
     grid-template-columns: 341px;
     grid-template-rows: 60px;
 }
+
+.ContentSmall {
+    grid-template-columns: 1fr;
+    grid-template-rows: 50px;
+    width: 100vw;
+}

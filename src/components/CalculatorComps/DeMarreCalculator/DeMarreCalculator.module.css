@@ -6,8 +6,6 @@
     background-color: rgb(30, 33, 38);
     color: #eaecef;
     overflow: auto;
-
-    
 }
 
 ::-webkit-scrollbar {
@@ -62,6 +60,11 @@
 .InputContainer {
     display: grid;
     grid-template-columns: 1.8fr 1fr;
+}
+
+.InputContainerSmall {
+    grid-template-columns: 1fr 1fr !important;
+    justify-items: center;
 }
 
 .InputWrapper {

@@ -7,11 +7,11 @@ import SimGraphics from "../../components/CalculatorComps/SimGraphics/SimGraphic
 import classes from "./CalculatorPage.module.css"
 
 const CalculatorPage = (props) => {
-    const screenSize = useSelector(state => state.screenSize);
+    const screenDimensions = useSelector(state => state.screenDimensions);
 
     return (
         <div className={classes.CalculatorPage}>
-            <div className={classes.Content}>
+            <div className={`${classes.Content} ${screenDimensions.width < 800 ? classes.ContentSmall : null}`}>
                 <Toolbar/>
                 <DeMarreCalculator/>
                 <SimGraphics/>

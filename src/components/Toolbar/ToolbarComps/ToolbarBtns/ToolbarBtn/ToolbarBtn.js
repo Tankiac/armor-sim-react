@@ -12,7 +12,7 @@ const ToolbarBtn = (props) => {
     const setBtnClasses = () => {
         let classString = `${classes.ToolbarBtn} ${screenSize === "large" || screenSize === "medium" ? 
         classes.ToolbarBtnLarge : screenSize === "small" ? 
-        classes.ToolbarBtnSmall : classes.ToolbarBtnExtraSmall}`;
+        classes.ToolbarBtnSmall : classes.ToolbarBtnSmall}`;
 
         classString = classString.concat(` ${classes.ToolbarBtnBlack}`)
         if (activeToolbarBtn === props.name.toLowerCase()) {
