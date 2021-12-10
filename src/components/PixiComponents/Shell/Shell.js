@@ -2,7 +2,7 @@ import React, { useState, useRef, useCallback, useEffect } from "react";
 import { DashLine } from 'pixi-dashed-line'
 
 import { Graphics, Sprite, useTick } from "@inlet/react-pixi";
-import PlaceholderShell from "../../../assets/images/PlaceholderShell.png"
+import APCBCShell from "../../../assets/images/APCBCShell.png"
 
 
 const Shell = (props) => {
@@ -108,7 +108,7 @@ const Shell = (props) => {
         draw={drawTrajectoryLine}
         ref={trajectoryLine}/>
         <Sprite
-        image={PlaceholderShell}
+        image={APCBCShell}
         scale={1}
         ref={sprite}
         rotation={position.y < props.plateY ? degToRad(360) - shellAngle : shellAngle}
