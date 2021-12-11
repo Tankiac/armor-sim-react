@@ -5,6 +5,7 @@ const shellData = [
         shellDiameter: 75,
         shellVelocity: 935,
         K: 2000,
+        n: 1.4,
         type: "APCBC",
         nation: "Germany"
     },
@@ -14,6 +15,7 @@ const shellData = [
         shellDiameter: 88,
         shellVelocity: 773,
         K: 1950,
+        n: 1.4,
         type: "APCBC",
         nation: "Germany"
     },
@@ -23,6 +25,7 @@ const shellData = [
         shellDiameter: 88,
         shellVelocity: 1000,
         K: 2000,
+        n: 1.4,
         type: "APCBC",
         nation: "Germany"
     },
@@ -32,6 +35,7 @@ const shellData = [
         shellDiameter: 128,
         shellVelocity: 950,
         K: 2000,
+        n: 1.4,
         type: "APCBC",
         nation: "Germany"
     },
@@ -41,6 +45,7 @@ const shellData = [
         shellDiameter: 75,
         shellVelocity: 750,
         K: 2000,
+        n: 1.4,
         type: "APCBC",
         nation: "Germany"
     },
@@ -51,6 +56,7 @@ const shellData = [
         shellDiameter: 75,
         shellVelocity: 620,
         K: 2000,
+        n: 1.4,
         type: "APCBC",
         nation: "USA"
     },
@@ -60,6 +66,7 @@ const shellData = [
         shellDiameter: 76,
         shellVelocity: 790,
         K: 2000,
+        n: 1.4,
         type: "APCBC",
         nation: "USA"
     },
@@ -69,6 +76,7 @@ const shellData = [
         shellDiameter: 90,
         shellVelocity: 853,
         K: 2050,
+        n: 1.4,
         type: "APCBC",
         nation: "USA"
     },
@@ -78,7 +86,8 @@ const shellData = [
         shellMass: 6.3,
         shellDiameter: 76,
         shellVelocity: 612,
-        K: 2400,
+        K: 2300,
+        n: 1.4,
         type: "APHE",
         nation: "USSR"
     },
@@ -88,6 +97,7 @@ const shellData = [
         shellDiameter: 57,
         shellVelocity: 990,
         K: 2400,
+        n: 1.4,
         type: "APCBC",
         nation: "USSR"
     },
@@ -96,16 +106,18 @@ const shellData = [
         shellMass: 9.2,
         shellDiameter: 85,
         shellVelocity: 792,
-        K: 2400,
+        K: 2200,
+        n: 1.4,
         type: "APHE",
         nation: "USSR"
     },
     {
-        fullName: "100mm D-10S (T-54, SU-100) - BR-412",
+        fullName: "100mm D-10T (T-54, SU-100) - BR-412D",
         shellMass: 15.6,
         shellDiameter: 100,
-        shellVelocity: 895,
-        K: 2400,
+        shellVelocity: 915,
+        K: 2000,
+        n: 1.4,
         type: "APHE",
         nation: "USSR"
     },
@@ -115,8 +127,40 @@ const shellData = [
         shellDiameter: 122,
         shellVelocity: 800,
         K: 2200,
+        n: 1.52,
         type: "APHE",
         nation: "USSR"
+    },
+
+    {
+        fullName: "76.2mm QF 17pdr (Sherman Firefly) - Shell Mk 3 APCBC",
+        shellMass: 7.7,
+        shellDiameter: 76.2,
+        shellVelocity: 900,
+        K: 2080,
+        n: 1.4,
+        type: "APCBC",
+        nation: "UK"
+    },
+    {
+        fullName: "76.2mm QF 17pdr (Sherman Firefly) - Shot Mk 1 APDS",
+        shellMass: 3.5,
+        shellDiameter: 38.1,
+        shellVelocity: 1200,
+        K: 3200,
+        n: 1.05,
+        type: "APDS",
+        nation: "UK"
+    },
+    {
+        fullName: "57mm QF 6pdr L/50 (Churchill III) - Shell Mk 8 APC",
+        shellMass: 2.86,
+        shellDiameter: 57,
+        shellVelocity: 884,
+        K: 2000,
+        n: 1.4,
+        type: "APCBC",
+        nation: "UK"
     }
 ]
 

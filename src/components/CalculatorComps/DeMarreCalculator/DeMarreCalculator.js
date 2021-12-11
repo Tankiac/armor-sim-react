@@ -228,6 +228,7 @@ const DeMarreCalculator = (props) => {
             setShellDiameter(shellPreset.shellDiameter)
             setShellVelocity(shellPreset.shellVelocity)
             setDeMarreConst(shellPreset.K)
+            setThicknessConst(shellPreset.n)
         }
     }, [shellPreset])
 

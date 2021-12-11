@@ -25,7 +25,7 @@ const TutorialArticle = (props) => {
             <h2 className={classes.SubTitle}>Graphical Representation</h2>
 
             <img 
-                src="https://i.imgur.com/tvjymFS.gif" 
+                src="https://i.imgur.com/GnOAz98.gif" 
                 alt="Dragging shell placeholder gif"
                 className={classes.Image}/>
 
