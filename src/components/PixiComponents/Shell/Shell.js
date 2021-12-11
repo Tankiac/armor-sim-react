@@ -11,10 +11,6 @@ const Shell = (props) => {
         return degrees * (Math.PI / 180);
       };
 
-    function radToDeg(rad) {
-        return rad / (Math.PI / 180);
-      };
-
       const sprite = useRef();
       const trajectoryLine = useRef();
 
@@ -56,7 +52,7 @@ const Shell = (props) => {
               setShellAngle(Math.asin(a / Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2))) + degToRad(270))
             }
           }
-        }, [isDragging, setPosition]);
+        }, [isDragging]);
         
         return {
           interactive: true, 

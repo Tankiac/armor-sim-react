@@ -19,7 +19,11 @@ const ToolbarBtns = (props) => {
                 classes.ToolbarBtnsLarge : screenSize === "small" ? 
                 classes.ToolbarBtnsSmall : classes.ToolbarBtnsSmall}`}>
                 {toolbarButtons.map(button => {
-                    return <ToolbarBtn name={button.name} linkTo={button.linkTo} btnColor={props.btnColor}/>
+                    return <ToolbarBtn 
+                        name={button.name} 
+                        linkTo={button.linkTo} 
+                        btnColor={props.btnColor} 
+                        key={toolbarButtons.indexOf(button)}/>
                 })}
             </div>
     )

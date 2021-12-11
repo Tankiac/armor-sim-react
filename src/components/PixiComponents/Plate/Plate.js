@@ -7,7 +7,7 @@ const Plate = (props) => {
         g.clear()
         g.beginFill(0x999999)
         .lineStyle(3, 0x000000)
-        .drawRect(0, 0, props.plateWidth, props.plateHeight)
+        .drawRect(0, 0, props.plateWidth, props.plateThickness)
         g.pivot.set(g.width/2, 0)
     }, [props])
 

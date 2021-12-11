@@ -1,6 +1,6 @@
-import React, { useEffect, useReducer, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Container, Graphics, Stage } from "@inlet/react-pixi";
+import { Stage } from "@inlet/react-pixi";
 
 import Shell from "../../PixiComponents/Shell/Shell";
 import Plate from "../../PixiComponents/Plate/Plate";
@@ -21,8 +21,8 @@ const SimGraphics = (props) => {
 
     const dispatch = useDispatch();
     const plateAngle = useSelector(state => state.plateAngle);
-    const screenSize = useSelector(state => state.screenSize);
     const screenDimensions = useSelector(state => state.screenDimensions);
+    const plateThickness = useSelector(state => state.plateThickness);
 
     const simGraphicsRef = useRef()
     const stageRef = useRef()
@@ -38,8 +38,6 @@ const SimGraphics = (props) => {
     const [shellY, setShellY] = useState(stageHeight / 2);
     const [shellScale, setShellScale] = useState(0.5);
     const [plateWidth, setPlateWidth] = useState(500);
-
-    const plateHeight = 50;
 
     const halfPlateWidth = plateWidth / 2;
 
@@ -75,7 +73,7 @@ const SimGraphics = (props) => {
             )
         setShellDistanceToPlate(shellDistanceToPlate)
         setShellDistanceToPlateEdge(shellDistanceToPlateEdge)
-    }, [shellPosition, plateAngle])
+    }, [shellPosition, plateAngle, halfPlateWidth, plateX, plateY])
 
     useEffect(() => {
         const impactAngle = 
@@ -106,12 +104,12 @@ const SimGraphics = (props) => {
         if (screenDimensions.width < 1000) {
             setShellScale(0.4);
             setPlateWidth(300);
-            setPlateX(stageWidth / 1.45);
+            setPlateX(stageWidth / 1.55);
             setShellX(stageWidth / 5.5);
         } else if (screenDimensions.width < 1200) {
             setShellScale(0.4);
             setPlateWidth(400);
-            setPlateX(stageWidth / 1.35);
+            setPlateX(stageWidth / 1.45);
             setShellX(stageWidth / 5);
         } else {
             setShellScale(0.5);
@@ -119,7 +117,7 @@ const SimGraphics = (props) => {
             setPlateX(stageWidth / 1.35);
             setShellX(stageWidth / 5);
         }
-    }, [screenDimensions])
+    }, [screenDimensions, stageWidth])
 
     return (
             <div 
@@ -151,7 +149,7 @@ const SimGraphics = (props) => {
                         <Plate 
                             plateAngle={plateAngle} 
                             plateWidth={plateWidth}
-                            plateHeight={plateHeight}
+                            plateThickness={plateThickness / 1.3}
                             position={{x: plateX, y: plateY}}
                             stageWidth={stageWidth} 
                             stageHeight={stageHeight}/>

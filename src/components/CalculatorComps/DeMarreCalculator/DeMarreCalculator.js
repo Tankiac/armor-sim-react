@@ -13,7 +13,6 @@ import classes from "./DeMarreCalculator.module.css"
 
 const DeMarreCalculator = (props) => {
     const [result, setResult] = useState(null);
-    const [effectiveThickness, setEffectiveThickness] = useState(null)
     const [shellPreset, setShellPreset] = useState(null);
     const [targetTankPreset, setTargetTankPreset] = useState(null);
     const [platePreset, setPlatePreset] = useState(null);
@@ -217,7 +216,7 @@ const DeMarreCalculator = (props) => {
                 setPlatePreset(plateNames[0].value);
             }
         }
-    }, [plateNames])
+    }, [plateNames, platePreset])
 
     useEffect(() => {
         changePlate();
@@ -237,6 +236,15 @@ const DeMarreCalculator = (props) => {
             onCalculate()
         }
     }, [shellMass, shellDiameter, shellVelocity, plateAngle, plateThickness, deMarreConst, thicknessConst])
+
+    useEffect(() => {
+        dispatch({
+            type: "setPlateThickness",
+            payload: {
+                plateThickness: plateThickness
+            }
+        })
+    }, [plateThickness])
 
     const customSelectStyles = {
         menu: (provided, state) => ({
@@ -318,7 +326,7 @@ const DeMarreCalculator = (props) => {
             <div 
                 className={classes.ArrowContainer}
                 onClick={() => {setShowInputs(!showInputs)}}>
-                <img className={classes.ShowCalculatorArrow} src={showInputs ? upArrow : downArrow}/>
+                <img className={classes.ShowCalculatorArrow} src={showInputs ? upArrow : downArrow} alt="show inputs arrow"/>
             </div>
 
             <div className={`${classes.Container} ${!showInputs ? classes.HideInputs : null}`}>
