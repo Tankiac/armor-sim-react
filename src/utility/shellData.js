@@ -126,8 +126,8 @@ const shellData = [
         shellMass: 25,
         shellDiameter: 122,
         shellVelocity: 800,
-        K: 2200,
-        n: 1.52,
+        K: 2100,
+        n: 1.8,
         type: "APHE",
         nation: "USSR"
     },
